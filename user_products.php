@@ -1,10 +1,9 @@
 <?php
 session_start();
-include 'header.php'; // استدعاء الهيدر لضمان وجود الروابط
+include 'header.php';
 require_once 'db.php';
 $conn = connectDB();
 
-// جلب كل المنتجات من قاعدة البيانات
 $stmt = $conn->query("SELECT * FROM products");
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>

@@ -2,15 +2,13 @@
 <?php
 session_start();
 require_once 'db.php';
-$conn = connectDB(); // تأكدي أن هذا هو الاتصال الذي يعيد كائن PDO
+$conn = connectDB();
 
-// التأكد من أن المستخدم أدمن
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
     exit();
 }
 
-// جلب المستخدمين باستخدام PDO
 $sql = "SELECT id, username, email, role, created_at FROM users";
 $stmt = $conn->query($sql);
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);

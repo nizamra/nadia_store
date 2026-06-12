@@ -1,5 +1,5 @@
 <?php
-session_start(); // ضروري للتحقق من حالة الدخول
+session_start();
 require_once 'db.php';
 $conn = connectDB();
 ?>

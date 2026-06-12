@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
-$dbname = "nadia_progect";
+$dbname = "nadia_project";
 $username = "root";
 $password = "";
 

@@ -1,14 +1,11 @@
 <?php
-// تأكدي أن هذه أول سطر في الملف تماماً
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// إظهار الأخطاء في حال وجود مشكلة
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// الاتصال بقاعدة البيانات
 require_once 'db.php';
 $conn = connectDB();
 ?>
@@ -62,7 +59,6 @@ $conn = connectDB();
 
     <div class="grid">
         <?php
-        // جلب المنتجات
         $stmt = $conn->prepare("SELECT * FROM products");
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);

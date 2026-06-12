@@ -2,8 +2,7 @@
 require_once 'db.php';
 $conn = connectDB();
 
-// 1. جلب البيانات الأصلية للمنتج بناءً على الـ ID
-$row = ['id' => '', 'name' => '', 'price' => '']; // قيم افتراضية
+$row = ['id' => '', 'name' => '', 'price' => ''];
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
@@ -11,13 +10,11 @@ if (isset($_GET['id'])) {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-// 2. تحديث البيانات عند الضغط على زر التحديث
 if (isset($_POST['update'])) {
     $id = $_POST['id'];
     $name = $_POST['name'];
     $price = $_POST['price'];
     
-    // الترتيب هنا: الاسم أولاً ثم السعر ثم الـ ID
     $stmt = $conn->prepare("UPDATE products SET name=?, price=? WHERE id=?");
     $stmt->execute([$name, $price, $id]);
     

@@ -14,7 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['role'] = $user['role'];
         
-        // إعادة توجيه حسب الصلاحية
         if ($user['role'] == 'admin') {
             header("Location: admin.php");
         } else {

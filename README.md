@@ -24,7 +24,7 @@ A beauty and skincare products e-commerce website built with PHP and MySQL. Supp
 git clone <repo-url>
 ```
 
-2. Import the database schema. Create a database named `nadia_progect` and run:
+2. Import the database schema. Create a database named `nadia_project` and run:
 ```sql
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -47,7 +47,7 @@ CREATE TABLE products (
 3. Configure database connection in `db.php`:
 ```php
 $host = "localhost";
-$dbname = "nadia_progect";
+$dbname = "nadia_project";
 $username = "root";
 $password = "";
 ```

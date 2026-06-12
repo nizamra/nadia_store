@@ -6,11 +6,10 @@ if (isset($_POST['add'])) {
     $name = $_POST['name'];
     $price = $_POST['price'];
 
-    // الإضافة بطريقة آمنة
     $stmt = $conn->prepare("INSERT INTO products (name, price) VALUES (?, ?)");
     $stmt->execute([$name, $price]);
 
-    header("Location: index.php"); // العودة لصفحة العرض بعد الإضافة
+    header("Location: index.php");
     exit();
 }
 ?>
