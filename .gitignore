@@ -1,0 +1,22 @@
+# OS
+Thumbs.db
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# PHP
+vendor/
+composer.lock
+
+# Environment
+.env
+*.log
+
+# Project specific
+*.jpg
+*.png
+*.gif

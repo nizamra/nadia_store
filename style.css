@@ -1,0 +1,78 @@
+bg: #041a17;
+    --gold: #d4bc8e;
+    --card-bg: #062622;
+    --white: #ffffff;
+    --text-dim: #8a9a98;
+}
+
+body { 
+    font-family: 'Segoe UI', Tahoma, sans-serif; 
+    background: var(--emerald-bg);
+    color: var(--white); 
+    margin: 0; 
+    text-align: center;
+}
+
+header { 
+    padding: 25px 0; 
+    border-bottom: 1px solid rgba(212, 188, 142, 0.2); 
+}
+
+.logo { 
+    font-size: 2rem; 
+    color: var(--gold); 
+}
+
+.container { 
+    width: 90%; 
+    max-width: 1200px; 
+    margin: 30px auto; 
+}
+
+#searchInput { 
+    padding: 15px; 
+    width: 100%; 
+    max-width: 400px; 
+    border-radius: 30px; 
+    border: 1px solid var(--gold); 
+    background: transparent; 
+    color: white;
+    margin-bottom: 40px;
+}
+
+/* 👇 تعديل مهم */
+.grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 25px; 
+}
+
+.card { 
+    background: var(--card-bg); 
+    padding: 20px; 
+    border-radius: 15px; 
+    text-decoration: none; 
+    color: var(--white);
+    transition: 0.3s;
+}
+
+.card:hover { 
+    transform: translateY(-10px); 
+    border: 1px solid var(--gold);
+}
+
+.img-box { 
+    height: 220px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+.img-box img { 
+    max-width: 80%; 
+}
+
+footer { 
+    padding: 40px; 
+    color: var(--text-dim); 
+}
