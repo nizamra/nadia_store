@@ -67,12 +67,16 @@ $conn = connectDB();
             echo '
             <div class="card">
                 <h3>' . htmlspecialchars($row['name']) . '</h3>
-                <p>السعر: ' . htmlspecialchars($row['price']) . '</p>
+                <p>السعر: ' . htmlspecialchars($row['price']) . '</p>';
+            if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
+                echo '
                 <a href="edit.php?id=' . $row['id'] . '" class="btn-edit">تعديل</a>
                 <form action="delete.php" method="POST" style="display:inline;">
                     <input type="hidden" name="id" value="' . $row['id'] . '">
                     <button type="submit" class="btn-delete">حذف</button>
-                </form>
+                </form>';
+            }
+            echo '
             </div>';
         }
         ?>
