@@ -16,7 +16,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <div class="nav-links">
         <a href="index.php">الرئيسية</a>
         <?php if(isset($_SESSION['user_id'])): ?>
-            <a href="user_products.php">المنتجات</a>
+            <a href="products.php">المنتجات</a>
             <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
                 <a href="admin.php">لوحة الأدمن</a>
             <?php endif; ?>

@@ -12,7 +12,7 @@ include 'header.php';
 ?>
 <div class="container">
     <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
-        <a href="created_at.php" class="add-btn">+ إضافة منتج جديد</a>
+        <a href="add_product.php" class="add-btn">+ إضافة منتج جديد</a>
     <?php endif; ?>
 
     <div class="grid">

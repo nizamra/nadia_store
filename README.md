@@ -73,11 +73,11 @@ UPDATE users SET role = 'admin' WHERE email = 'your@email.com';
 ├── login.php          # User login
 ├── register.php       # User registration
 ├── admin.php          # Admin dashboard
-├── created_at.php     # Add new product
+├── add_product.php    # Add new product with image upload
 ├── edit.php           # Edit product
 ├── delete.php         # Delete product
 ├── Product.php        # Product detail page (frontend)
-├── user_products.php  # User products view
+├── products.php       # User products view
 ├── db.php             # Database connection
 ├── home.php           # Session check helper
 ├── header.php         # Page header

@@ -10,7 +10,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <div class="container" style="text-align:center;">
     <h2 style="color:#d4af37;">مجموعة منتجات SKINLUXE</h2>
     <div class="product-grid">
-        <?php foreach ($products as $row): 
+        <?php foreach ($products as $row):
             $img = $row['image'] ? 'images/' . htmlspecialchars($row['image']) : '';
         ?>
             <div class="product-card">

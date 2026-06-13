@@ -16,9 +16,7 @@ include 'header.php';
 ?>
 <div class="container">
     <div class="admin-links">
-        <a href="index.php">الرئيسية</a>
-        <a href="created_at.php">إضافة منتج</a>
-        <a href="logout.php" style="color:#e74c3c;">تسجيل خروج</a>
+        <a href="add_product.php">إضافة منتج</a>
     </div>
 
     <h2 style="color:#d4af37; text-align:center;">لوحة تحكم الأدمن</h2>
