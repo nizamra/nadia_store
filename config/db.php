@@ -1,8 +1,8 @@
 <?php
-$host = "localhost";
-$dbname = "nadia_project";
-$username = "root";
-$password = "";
+$host = "sql101.infinityfree.com";
+$dbname = "ifo_42159952_nadia_project";
+$username = "ifo_42159952";
+$password = "Siple345Pass";
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
