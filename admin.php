@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 require_once 'db.php';
@@ -12,30 +11,23 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 $sql = "SELECT id, username, email, role, created_at FROM users";
 $stmt = $conn->query($sql);
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-?>
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>لوحة تحكم الأدمن</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
-        .container { max-width: 900px; background: white; padding: 20px; margin: auto; border-radius: 10px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
-        th { background-color: #333; color: white; }
-        .btn-logout { display: inline-block; padding: 10px; background: #e74c3c; color: white; text-decoration: none; border-radius: 5px; }
-    </style>
-</head>
-<body>
 
+include 'header.php';
+?>
 <div class="container">
-    <a href="logout.php" class="btn-logout">تسجيل الخروج</a>
-    <h3>المستخدمون المسجلون في النظام:</h3>
-    <table>
+    <div class="admin-links">
+        <a href="index.php">الرئيسية</a>
+        <a href="created_at.php">إضافة منتج</a>
+        <a href="logout.php" style="color:#e74c3c;">تسجيل خروج</a>
+    </div>
+
+    <h2 style="color:#d4af37; text-align:center;">لوحة تحكم الأدمن</h2>
+    <h3 style="text-align:center; margin-top:10px;">المستخدمون المسجلون</h3>
+
+    <table class="admin-table">
         <thead>
             <tr>
-                <th>المعرف (ID)</th>
+                <th>المعرف</th>
                 <th>اسم المستخدم</th>
                 <th>البريد الإلكتروني</th>
                 <th>الصلاحية</th>
@@ -59,6 +51,4 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </tbody>
     </table>
 </div>
-
-</body>
-</html>
+<?php include 'footer.php'; ?>

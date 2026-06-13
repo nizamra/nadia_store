@@ -8,50 +8,8 @@ error_reporting(E_ALL);
 
 require_once 'db.php';
 $conn = connectDB();
+include 'header.php';
 ?>
-<!DOCTYPE html>
-<html dir="rtl" lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <title>SKINLUXE - الصفحة الرئيسية</title>
-    <style>
-        body { background-color: #2a2a2a; color: #fff; }
-        header { text-align: center; margin-bottom: 30px; }
-        .nav-bar { margin-top: 15px; }
-        .nav-bar a { color: #fff; margin: 0 10px; text-decoration: none; }
-        .nav-bar a:hover { color: #d4af37; }
-
-        .add-btn { display: block; width: 220px; margin: 20px auto; text-align: center; background: #d4af37; color: #000; padding: 10px; text-decoration: none; border-radius: 5px; }
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 20px; }
-        .card { background: #333; padding: 20px; border-radius: 10px; }
-        .card h3 { color: #d4af37; }
-        .btn-edit { color: #5dade2; text-decoration: none; }
-        .btn-delete { background: none; border: 1px solid #e74c3c; color: #e74c3c; cursor: pointer; padding: 5px; }
-    </style>
-</head>
-<body>
-
-<header>
-    <div class="logo">SKINLUXE</div>
-    
-    <div class="nav-bar">
-        <a href="index.php">الرئيسية</a>
-
-        <?php if(session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['user_id'])): ?>
-            <a href="logout.php">تسجيل خروج</a>
-            
-            <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
-                <a href="admin.php">لوحة الأدمن</a>
-            <?php endif; ?>
-            
-            <a href="user_products.php">المنتجات</a>
-        <?php else: ?>
-            <a href="login.php">دخول</a>
-            <a href="register.php">تسجيل</a>
-        <?php endif; ?>
-    </div>
-</header>
-
 <div class="container">
     <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
         <a href="created_at.php" class="add-btn">+ إضافة منتج جديد</a>
@@ -64,8 +22,13 @@ $conn = connectDB();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($results as $row) {
+            $img = $row['image'] ? 'images/' . htmlspecialchars($row['image']) : '';
             echo '
-            <div class="card">
+            <div class="card">';
+            if ($img) {
+                echo '<img src="' . $img . '" alt="' . htmlspecialchars($row['name']) . '" style="width:100%; height:180px; object-fit:cover; border-radius:8px; margin-bottom:12px;" onerror="this.style.display=\'none\'">';
+            }
+            echo '
                 <h3>' . htmlspecialchars($row['name']) . '</h3>
                 <p>السعر: ' . htmlspecialchars($row['price']) . '</p>';
             if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
@@ -82,5 +45,4 @@ $conn = connectDB();
         ?>
     </div>
 </div>
-</body>
-</html>
+<?php include 'footer.php'; ?>

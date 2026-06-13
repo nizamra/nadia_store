@@ -1,6 +1,12 @@
 <?php
+session_start();
 require_once 'db.php';
 $conn = connectDB();
+
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    header("Location: login.php");
+    exit();
+}
 
 $row = ['id' => '', 'name' => '', 'price' => ''];
 if (isset($_GET['id'])) {
@@ -21,26 +27,19 @@ if (isset($_POST['update'])) {
     header("Location: index.php");
     exit();
 }
-?>
 
-<!DOCTYPE html>
-<html dir="rtl" lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <title>تعديل المنتج</title>
-</head>
-<body>
-    <h2>تعديل بيانات المنتج</h2>
-    <form method="POST">
-        <input type="hidden" name="id" value="<?php echo htmlspecialchars($row['id']); ?>">
-        
-        <label>اسم المنتج:</label><br>
-        <input type="text" name="name" value="<?php echo htmlspecialchars($row['name']); ?>"><br>
-        
-        <label>السعر:</label><br>
-        <input type="text" name="price" value="<?php echo htmlspecialchars($row['price']); ?>"><br><br>
-        
-        <button type="submit" name="update">حفظ التعديلات</button>
-    </form>
-</body>
-</html>
+include 'header.php';
+?>
+<div class="container">
+    <div class="form-box">
+        <h2>تعديل بيانات المنتج</h2>
+        <form method="POST">
+            <input type="hidden" name="id" value="<?php echo htmlspecialchars($row['id']); ?>">
+            <input type="text" name="name" value="<?php echo htmlspecialchars($row['name']); ?>" placeholder="اسم المنتج" required>
+            <input type="text" name="price" value="<?php echo htmlspecialchars($row['price']); ?>" placeholder="السعر" required>
+            <button type="submit" name="update">حفظ التعديلات</button>
+        </form>
+        <a href="index.php" class="link">← العودة للرئيسية</a>
+    </div>
+</div>
+<?php include 'footer.php'; ?>
