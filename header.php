@@ -9,6 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta charset="UTF-8">
     <title>SKINLUXE</title>
     <link rel="stylesheet" href="style.css">
+    <script src="js/search.js" defer></script>
 </head>
 <body>
 <header>

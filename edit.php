@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 
-$row = ['id' => '', 'name' => '', 'price' => '', 'image' => ''];
+$row = ['id' => '', 'name' => '', 'price' => '', 'description' => '', 'ingredients' => '', 'results' => '', 'image' => ''];
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
@@ -20,6 +20,9 @@ if (isset($_POST['update'])) {
     $id = $_POST['id'];
     $name = $_POST['name'];
     $price = $_POST['price'];
+    $description = $_POST['description'];
+    $ingredients = $_POST['ingredients'];
+    $results = $_POST['results'];
     $image = $row['image'];
 
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
@@ -35,8 +38,8 @@ if (isset($_POST['update'])) {
         }
     }
 
-    $stmt = $conn->prepare("UPDATE products SET name=?, price=?, image=? WHERE id=?");
-    $stmt->execute([$name, $price, $image, $id]);
+    $stmt = $conn->prepare("UPDATE products SET name=?, price=?, description=?, ingredients=?, results=?, image=? WHERE id=?");
+    $stmt->execute([$name, $price, $description, $ingredients, $results, $image, $id]);
 
     header("Location: index.php");
     exit();
@@ -51,6 +54,9 @@ include 'header.php';
             <input type="hidden" name="id" value="<?php echo htmlspecialchars($row['id']); ?>">
             <input type="text" name="name" value="<?php echo htmlspecialchars($row['name']); ?>" placeholder="اسم المنتج" required>
             <input type="text" name="price" value="<?php echo htmlspecialchars($row['price']); ?>" placeholder="السعر" required>
+            <textarea name="description" placeholder="الوصف" style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #555; border-radius:8px; background:#444; color:#fff; font-size:15px; text-align:right; resize:vertical;" rows="3"><?php echo htmlspecialchars($row['description'] ?? ''); ?></textarea>
+            <textarea name="ingredients" placeholder="المكونات" style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #555; border-radius:8px; background:#444; color:#fff; font-size:15px; text-align:right; resize:vertical;" rows="3"><?php echo htmlspecialchars($row['ingredients'] ?? ''); ?></textarea>
+            <textarea name="results" placeholder="النتائج المتوقعة" style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #555; border-radius:8px; background:#444; color:#fff; font-size:15px; text-align:right; resize:vertical;" rows="3"><?php echo htmlspecialchars($row['results'] ?? ''); ?></textarea>
 
             <?php if ($row['image']): ?>
                 <div style="margin-bottom:15px;">

@@ -1,15 +1,17 @@
 # SKINLUXE
 
-A beauty and skincare products e-commerce website built with PHP and MySQL. Supports user registration, login, admin panel, and full product management (CRUD).
+A beauty and skincare products e-commerce website built with PHP and MySQL. Supports user registration, login, admin panel, and full product management (CRUD) with image upload.
 
 ## Features
 
 - User authentication (register / login / logout)
 - Role-based access control (admin / user)
 - Admin dashboard to manage users and products
-- Product listing with details (price, description, ingredients)
+- Product listing with detail page (description, ingredients, results)
+- Image upload for products
+- Product search by name
 - Arabic (RTL) interface
-- Responsive grid layout
+- Responsive dark theme
 
 ## Requirements
 
@@ -24,7 +26,7 @@ A beauty and skincare products e-commerce website built with PHP and MySQL. Supp
 git clone <repo-url>
 ```
 
-2. Import the database schema. Create a database named `nadia_project` and run:
+2. Import the database schema into a database named `nadia_progect`:
 ```sql
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -39,6 +41,9 @@ CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     price DECIMAL(10,2) NOT NULL,
+    description TEXT,
+    ingredients TEXT,
+    results TEXT,
     image VARCHAR(255) DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -47,45 +52,50 @@ CREATE TABLE products (
 3. Configure database connection in `db.php`:
 ```php
 $host = "localhost";
-$dbname = "nadia_project";
+$dbname = "nadia_progect";
 $username = "root";
 $password = "";
 ```
 
-4. Start a PHP development server:
+4. Place the project in Laragon's `www` folder (or start a PHP server):
 ```bash
 php -S localhost:8000
 ```
 
-5. Open `http://localhost:8000` in your browser.
+5. Open `http://localhost/nadia_progect` in your browser.
 
 ## Default Admin Access
 
-Register a new account, then manually set the role to `admin` in the database:
+Run this SQL to create an admin account:
 ```sql
-UPDATE users SET role = 'admin' WHERE email = 'your@email.com';
+INSERT INTO users (username, email, password, role)
+VALUES ('admin', 'admin@skinluxe.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin');
 ```
+Login with `admin@skinluxe.com` / `admin123`.
 
 ## Project Structure
 
 ```
-├── index.php          # Home page / product listing
-├── login.php          # User login
-├── register.php       # User registration
-├── admin.php          # Admin dashboard
-├── add_product.php    # Add new product with image upload
-├── edit.php           # Edit product
-├── delete.php         # Delete product
-├── Product.php        # Product detail page (frontend)
-├── products.php       # User products view
-├── db.php             # Database connection
-├── home.php           # Session check helper
-├── header.php         # Page header
-├── footer.php         # Page footer
-├── order_action.php   # Order handling
-├── test.php           # Test file
-├── style.css          # Styles
-└── images/            # Product images
+├── index.php             # Home page / product listing with search
+├── product_detail.php    # Product detail page (description, ingredients)
+├── products.php          # User-facing product catalog with search
+├── login.php             # User login
+├── register.php          # User registration
+├── admin.php             # Admin dashboard (users + products tables)
+├── add_product.php       # Add new product with image upload
+├── edit.php              # Edit product
+├── delete.php            # Delete product
+├── order_action.php      # Order confirmation page
+├── db.php                # Database connection
+├── header.php            # Shared header with nav
+├── footer.php            # Shared footer
+├── style.css             # Stylesheet
+├── js/search.js          # Search enhancement JS
+├── images/               # Uploaded product images
+├── meta                  # SQL schema reference
+├── README.md
+├── LICENSE
+└── .gitignore
 ```
 
 ## License

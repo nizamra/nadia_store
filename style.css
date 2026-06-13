@@ -304,3 +304,79 @@ footer {
 }
 
 .admin-links a:hover { text-decoration: underline; }
+
+/* Search */
+.search-form {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.search-input {
+    padding: 14px 20px;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 30px;
+    border: 1px solid var(--gold);
+    background: var(--card-bg);
+    color: var(--white);
+    font-size: 15px;
+    text-align: right;
+}
+
+.search-input::placeholder { color: var(--text-dim); }
+
+.search-clear {
+    color: var(--gold);
+    margin-right: 10px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.search-clear:hover { text-decoration: underline; }
+
+/* Product Detail Page */
+.detail-box {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid var(--gold);
+    text-align: center;
+}
+
+.detail-img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.detail-box h1 {
+    color: var(--gold);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.detail-price {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 25px;
+}
+
+.detail-section {
+    text-align: right;
+    margin-top: 20px;
+    padding: 15px;
+    background: #3a3a3a;
+    border-radius: 8px;
+}
+
+.detail-section h3 {
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.detail-section p {
+    line-height: 1.8;
+    color: #ddd;
+}
