@@ -31,6 +31,7 @@ include __DIR__ . '/../includes/header.php';
                 <th>البريد الإلكتروني</th>
                 <th>الصلاحية</th>
                 <th>تاريخ التسجيل</th>
+                <th>إجراءات</th>
             </tr>
         </thead>
         <tbody>
@@ -42,10 +43,22 @@ include __DIR__ . '/../includes/header.php';
                         <td><?php echo htmlspecialchars($row['email']); ?></td>
                         <td><?php echo htmlspecialchars($row['role']); ?></td>
                         <td><?php echo htmlspecialchars($row['created_at']); ?></td>
+                        <td>
+                            <?php if ($row['id'] != $_SESSION['user_id']): ?>
+                                <form action="role_action.php" method="POST">
+                                    <input type="hidden" name="user_id" value="<?php echo $row['id']; ?>">
+                                    <button type="submit" class="<?php echo $row['role'] == 'admin' ? 'btn-delete' : 'btn-edit'; ?>" style="border:none; padding:5px 10px; border-radius:3px; cursor:pointer;">
+                                        <?php echo $row['role'] == 'admin' ? 'إزالة صلاحية' : 'تعيين أدمن'; ?>
+                                    </button>
+                                </form>
+                            <?php else: ?>
+                                <span style="color:#666; font-size:0.85rem;">—</span>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
-                <tr><td colspan="5">لا يوجد مستخدمون</td></tr>
+                <tr><td colspan="6">لا يوجد مستخدمون</td></tr>
             <?php endif; ?>
         </tbody>
     </table>
