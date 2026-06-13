@@ -1,11 +1,11 @@
 <?php
 session_start();
-require_once "db.php";
+require_once __DIR__ . '/../config/db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
-    
+
     $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
 
     $stmt = $conn->prepare("INSERT INTO users (username, email, password, role) VALUES (:username, :email, :password, 'user')");
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>SKINLUXE - تسجيل</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../public/css/style.css">
 </head>
 <body class="auth-wrapper">
     <div class="auth-box">

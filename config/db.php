@@ -11,6 +11,10 @@ try {
     die("خطأ في الاتصال: " . $e->getMessage());
 }
 
+$projectRoot = str_replace('\\', '/', dirname(__DIR__));
+$docRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
+define('BASE_URL', str_replace($docRoot, '', $projectRoot));
+
 function connectDB() {
     global $conn;
     return $conn;

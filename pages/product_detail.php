@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-require_once 'db.php';
+require_once __DIR__ . '/../config/db.php';
 $conn = connectDB();
 
 $product = null;
@@ -12,13 +12,13 @@ if (isset($_GET['id'])) {
     $product = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-include 'header.php';
+include __DIR__ . '/../includes/header.php';
 ?>
 <div class="container" style="max-width:700px;">
     <?php if ($product): ?>
         <div class="detail-box">
             <?php if ($product['image']): ?>
-                <img src="images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="detail-img" onerror="this.style.display='none'">
+                <img src="../public/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="detail-img" onerror="this.style.display='none'">
             <?php endif; ?>
 
             <h1><?php echo htmlspecialchars($product['name']); ?></h1>
@@ -46,14 +46,14 @@ include 'header.php';
             <?php endif; ?>
 
             <div style="text-align:center; margin-top:30px;">
-                <a href="index.php" class="order-btn" style="display:inline-block; padding:12px 30px;">← العودة للمنتجات</a>
+                <a href="../index.php" class="order-btn" style="display:inline-block; padding:12px 30px;">← العودة للمنتجات</a>
             </div>
         </div>
     <?php else: ?>
         <div style="text-align:center; padding:80px 0;">
             <h2 style="color:#d4af37;">المنتج غير موجود</h2>
-            <a href="index.php" style="color:#d4af37;">← العودة للرئيسية</a>
+            <a href="../index.php" style="color:#d4af37;">← العودة للرئيسية</a>
         </div>
     <?php endif; ?>
 </div>
-<?php include 'footer.php'; ?>
+<?php include __DIR__ . '/../includes/footer.php'; ?>

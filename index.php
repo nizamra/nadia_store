@@ -6,7 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-require_once 'db.php';
+require_once 'config/db.php';
 $conn = connectDB();
 
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
@@ -20,7 +20,7 @@ if ($search !== '') {
 }
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-include 'header.php';
+include 'includes/header.php';
 ?>
 <div class="container">
     <form method="GET" class="search-form">
@@ -31,13 +31,13 @@ include 'header.php';
     </form>
 
     <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
-        <a href="add_product.php" class="add-btn">+ إضافة منتج جديد</a>
+        <a href="admin/add_product.php" class="add-btn">+ إضافة منتج جديد</a>
     <?php endif; ?>
 
     <div class="grid">
         <?php if (count($results) > 0): ?>
             <?php foreach ($results as $row):
-                $img = $row['image'] ? 'images/' . htmlspecialchars($row['image']) : '';
+                $img = $row['image'] ? 'public/images/' . htmlspecialchars($row['image']) : '';
             ?>
                 <div class="card">
                     <?php if ($img): ?>
@@ -45,11 +45,11 @@ include 'header.php';
                     <?php endif; ?>
                     <h3><?php echo htmlspecialchars($row['name']); ?></h3>
                     <p>السعر: <?php echo htmlspecialchars($row['price']); ?> ر.س</p>
-                    <a href="product_detail.php?id=<?php echo $row['id']; ?>" style="color:#d4af37; text-decoration:none; font-size:0.9rem;">عرض التفاصيل</a>
+                    <a href="pages/product_detail.php?id=<?php echo $row['id']; ?>" style="color:#d4af37; text-decoration:none; font-size:0.9rem;">عرض التفاصيل</a>
                     <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
                         <div style="margin-top:10px;">
-                            <a href="edit.php?id=<?php echo $row['id']; ?>" class="btn-edit">تعديل</a>
-                            <form action="delete.php" method="POST" style="display:inline;">
+                            <a href="admin/edit.php?id=<?php echo $row['id']; ?>" class="btn-edit">تعديل</a>
+                            <form action="admin/delete.php" method="POST" style="display:inline;">
                                 <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                 <button type="submit" class="btn-delete">حذف</button>
                             </form>
@@ -68,4 +68,4 @@ include 'header.php';
         <?php endif; ?>
     </div>
 </div>
-<?php include 'footer.php'; ?>
+<?php include 'includes/footer.php'; ?>

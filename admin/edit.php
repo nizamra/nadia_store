@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once 'db.php';
+require_once __DIR__ . '/../config/db.php';
 $conn = connectDB();
 
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
+    header("Location: ../auth/login.php");
     exit();
 }
 
@@ -30,22 +30,23 @@ if (isset($_POST['update'])) {
         $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
         if (in_array($ext, $allowed)) {
-            if ($image && file_exists(__DIR__ . '/images/' . $image)) {
-                unlink(__DIR__ . '/images/' . $image);
+            $oldPath = __DIR__ . '/../public/images/' . $image;
+            if ($image && file_exists($oldPath)) {
+                unlink($oldPath);
             }
             $image = uniqid() . '.' . $ext;
-            move_uploaded_file($_FILES['image']['tmp_name'], __DIR__ . '/images/' . $image);
+            move_uploaded_file($_FILES['image']['tmp_name'], __DIR__ . '/../public/images/' . $image);
         }
     }
 
     $stmt = $conn->prepare("UPDATE products SET name=?, price=?, description=?, ingredients=?, results=?, image=? WHERE id=?");
     $stmt->execute([$name, $price, $description, $ingredients, $results, $image, $id]);
 
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
-include 'header.php';
+include __DIR__ . '/../includes/header.php';
 ?>
 <div class="container">
     <div class="form-box">
@@ -60,7 +61,7 @@ include 'header.php';
 
             <?php if ($row['image']): ?>
                 <div style="margin-bottom:15px;">
-                    <img src="images/<?php echo htmlspecialchars($row['image']); ?>" style="width:100px; height:100px; object-fit:cover; border-radius:8px;">
+                    <img src="../public/images/<?php echo htmlspecialchars($row['image']); ?>" style="width:100px; height:100px; object-fit:cover; border-radius:8px;">
                 </div>
             <?php endif; ?>
 
@@ -68,7 +69,7 @@ include 'header.php';
 
             <button type="submit" name="update">حفظ التعديلات</button>
         </form>
-        <a href="index.php" class="link">← العودة للرئيسية</a>
+        <a href="../index.php" class="link">← العودة للرئيسية</a>
     </div>
 </div>
-<?php include 'footer.php'; ?>
+<?php include __DIR__ . '/../includes/footer.php'; ?>

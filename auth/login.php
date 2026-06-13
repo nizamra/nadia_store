@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "db.php"; 
+require_once __DIR__ . '/../config/db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
@@ -14,11 +14,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['username'];
         $_SESSION['role'] = $user['role'];
-        
+
         if ($user['role'] == 'admin') {
-            header("Location: admin.php");
+            header("Location: ../admin/index.php");
         } else {
-            header("Location: index.php");
+            header("Location: ../index.php");
         }
         exit();
     } else {
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>SKINLUXE - دخول</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../public/css/style.css">
 </head>
 <body class="auth-wrapper">
     <div class="auth-box">

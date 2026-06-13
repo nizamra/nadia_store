@@ -26,7 +26,7 @@ A beauty and skincare products e-commerce website built with PHP and MySQL. Supp
 git clone <repo-url>
 ```
 
-2. Import the database schema into a database named `nadia_progect`:
+2. Import the database schema into a database named `nadia_project`:
 ```sql
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -49,10 +49,10 @@ CREATE TABLE products (
 );
 ```
 
-3. Configure database connection in `db.php`:
+3. Configure database connection in `config/db.php`:
 ```php
 $host = "localhost";
-$dbname = "nadia_progect";
+$dbname = "nadia_project";
 $username = "root";
 $password = "";
 ```
@@ -62,7 +62,7 @@ $password = "";
 php -S localhost:8000
 ```
 
-5. Open `http://localhost/nadia_progect` in your browser.
+5. Open `http://localhost/nadia_project` in your browser.
 
 ## Default Admin Access
 
@@ -76,23 +76,30 @@ Login with `admin@skinluxe.com` / `admin123`.
 ## Project Structure
 
 ```
-├── index.php             # Home page / product listing with search
-├── product_detail.php    # Product detail page (description, ingredients)
-├── products.php          # User-facing product catalog with search
-├── login.php             # User login
-├── register.php          # User registration
-├── admin.php             # Admin dashboard (users + products tables)
-├── add_product.php       # Add new product with image upload
-├── edit.php              # Edit product
-├── delete.php            # Delete product
-├── order_action.php      # Order confirmation page
-├── db.php                # Database connection
-├── header.php            # Shared header with nav
-├── footer.php            # Shared footer
-├── style.css             # Stylesheet
-├── js/search.js          # Search enhancement JS
-├── images/               # Uploaded product images
-├── meta                  # SQL schema reference
+├── index.php                  # Entry point (home page with search)
+├── config/
+│   └── db.php                 # Database connection
+├── includes/
+│   ├── header.php             # Shared header with nav
+│   └── footer.php             # Shared footer
+├── public/
+│   ├── css/style.css          # Stylesheet
+│   ├── js/search.js           # Search enhancement JS
+│   └── images/                # Uploaded product images
+├── admin/
+│   ├── index.php              # Admin dashboard (users + products)
+│   ├── add_product.php        # Add new product with image upload
+│   ├── edit.php               # Edit product
+│   └── delete.php             # Delete product
+├── auth/
+│   ├── login.php              # User login
+│   ├── register.php           # User registration
+│   └── logout.php             # Logout
+├── pages/
+│   ├── products.php           # User product catalog with search
+│   ├── product_detail.php     # Product detail page
+│   └── order_action.php       # Order confirmation
+├── meta                       # SQL schema reference
 ├── README.md
 ├── LICENSE
 └── .gitignore

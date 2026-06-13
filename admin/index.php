@@ -1,23 +1,23 @@
 <?php
 session_start();
-require_once 'db.php';
+require_once __DIR__ . '/../config/db.php';
 $conn = connectDB();
 
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
+    header("Location: ../auth/login.php");
     exit();
 }
 
 $users = $conn->query("SELECT id, username, email, role, created_at FROM users")->fetchAll(PDO::FETCH_ASSOC);
 $products = $conn->query("SELECT * FROM products ORDER BY created_at DESC")->fetchAll(PDO::FETCH_ASSOC);
 
-include 'header.php';
+include __DIR__ . '/../includes/header.php';
 ?>
 <div class="container">
     <div class="admin-links">
         <a href="add_product.php">+ إضافة منتج جديد</a>
-        <a href="index.php">العودة للمتجر</a>
-        <a href="logout.php" style="color:#e74c3c;">تسجيل خروج</a>
+        <a href="../index.php">العودة للمتجر</a>
+        <a href="../auth/logout.php" style="color:#e74c3c;">تسجيل خروج</a>
     </div>
 
     <h2 style="color:#d4af37; text-align:center;">لوحة تحكم الأدمن</h2>
@@ -69,7 +69,7 @@ include 'header.php';
                         <td><?php echo htmlspecialchars($p['id']); ?></td>
                         <td>
                             <?php if ($p['image']): ?>
-                                <img src="images/<?php echo htmlspecialchars($p['image']); ?>" style="width:50px; height:50px; object-fit:cover; border-radius:5px;">
+                                <img src="../public/images/<?php echo htmlspecialchars($p['image']); ?>" style="width:50px; height:50px; object-fit:cover; border-radius:5px;">
                             <?php else: ?>
                                 <span style="color:#666;">—</span>
                             <?php endif; ?>
@@ -92,4 +92,4 @@ include 'header.php';
         </tbody>
     </table>
 </div>
-<?php include 'footer.php'; ?>
+<?php include __DIR__ . '/../includes/footer.php'; ?>

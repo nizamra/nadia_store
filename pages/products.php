@@ -1,7 +1,7 @@
 <?php
 session_start();
-include 'header.php';
-require_once 'db.php';
+require_once __DIR__ . '/../config/db.php';
+include __DIR__ . '/../includes/header.php';
 $conn = connectDB();
 
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
@@ -27,7 +27,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php if (count($products) > 0): ?>
         <div class="product-grid">
             <?php foreach ($products as $row):
-                $img = $row['image'] ? 'images/' . htmlspecialchars($row['image']) : '';
+                $img = $row['image'] ? '../public/images/' . htmlspecialchars($row['image']) : '';
             ?>
                 <div class="product-card">
                     <?php if ($img): ?>
@@ -50,4 +50,4 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </p>
     <?php endif; ?>
 </div>
-<?php include 'footer.php'; ?>
+<?php include __DIR__ . '/../includes/footer.php'; ?>

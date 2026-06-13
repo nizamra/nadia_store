@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once 'db.php';
+require_once __DIR__ . '/../config/db.php';
 $conn = connectDB();
 
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
+    header("Location: ../auth/login.php");
     exit();
 }
 
@@ -22,19 +22,18 @@ if (isset($_POST['add'])) {
 
         if (in_array($ext, $allowed)) {
             $image = uniqid() . '.' . $ext;
-            $dest = __DIR__ . '/images/' . $image;
-            move_uploaded_file($_FILES['image']['tmp_name'], $dest);
+            move_uploaded_file($_FILES['image']['tmp_name'], __DIR__ . '/../public/images/' . $image);
         }
     }
 
     $stmt = $conn->prepare("INSERT INTO products (name, price, description, ingredients, results, image) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->execute([$name, $price, $description, $ingredients, $results, $image]);
 
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
-include 'header.php';
+include __DIR__ . '/../includes/header.php';
 ?>
 <div class="container">
     <div class="form-box">
@@ -48,7 +47,7 @@ include 'header.php';
             <input type="file" name="image" accept="image/*" style="padding:10px; background:#444; color:#fff; border:1px solid #555; border-radius:8px; width:100%; margin-bottom:15px;">
             <button type="submit" name="add">إضافة المنتج</button>
         </form>
-        <a href="index.php" class="link">← العودة للرئيسية</a>
+        <a href="../index.php" class="link">← العودة للرئيسية</a>
     </div>
 </div>
-<?php include 'footer.php'; ?>
+<?php include __DIR__ . '/../includes/footer.php'; ?>
