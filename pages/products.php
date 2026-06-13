@@ -5,14 +5,25 @@ include __DIR__ . '/../includes/header.php';
 $conn = connectDB();
 
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+$page = max(1, intval($_GET['page'] ?? 1));
+$perPage = 9;
+$offset = ($page - 1) * $perPage;
 
 if ($search !== '') {
-    $stmt = $conn->prepare("SELECT * FROM products WHERE name LIKE ? ORDER BY created_at DESC");
+    $countStmt = $conn->prepare("SELECT COUNT(*) FROM products WHERE name LIKE ?");
+    $countStmt->execute(['%' . $search . '%']);
+    $total = $countStmt->fetchColumn();
+
+    $stmt = $conn->prepare("SELECT * FROM products WHERE name LIKE ? ORDER BY created_at DESC LIMIT $perPage OFFSET $offset");
     $stmt->execute(['%' . $search . '%']);
 } else {
-    $stmt = $conn->query("SELECT * FROM products ORDER BY created_at DESC");
+    $total = $conn->query("SELECT COUNT(*) FROM products")->fetchColumn();
+
+    $stmt = $conn->prepare("SELECT * FROM products ORDER BY created_at DESC LIMIT $perPage OFFSET $offset");
+    $stmt->execute();
 }
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$totalPages = ceil($total / $perPage);
 ?>
 <div class="container" style="text-align:center;">
     <form method="GET" class="search-form">
@@ -48,6 +59,22 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 لا توجد منتجات حالياً
             <?php endif; ?>
         </p>
+    <?php endif; ?>
+
+    <?php if ($totalPages > 1): ?>
+        <div class="pagination">
+            <?php if ($page > 1): ?>
+                <a href="?page=<?php echo $page - 1; ?>&search=<?php echo urlencode($search); ?>" class="page-link">← السابق</a>
+            <?php endif; ?>
+
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <a href="?page=<?php echo $i; ?>&search=<?php echo urlencode($search); ?>" class="page-link <?php echo $i == $page ? 'page-active' : ''; ?>"><?php echo $i; ?></a>
+            <?php endfor; ?>
+
+            <?php if ($page < $totalPages): ?>
+                <a href="?page=<?php echo $page + 1; ?>&search=<?php echo urlencode($search); ?>" class="page-link">التالي →</a>
+            <?php endif; ?>
+        </div>
     <?php endif; ?>
 </div>
 <?php include __DIR__ . '/../includes/footer.php'; ?>
